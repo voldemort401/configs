@@ -31,6 +31,4 @@ vim.g.clipboard = {
   },
 }
 
-require('cyberpunk').setup {
-  theme = 'dark'
-}
+
