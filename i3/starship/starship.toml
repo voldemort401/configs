@@ -1,191 +1,328 @@
-# ---------------------------------------
-# cybr-starship    lucid theme for starship
-# Project:         https://github.com/cybrcore/cybr-starship
-# Author:          scherrer-txt   |   License:     GPL-3.0
-# Source:          ~/.config/starship/cybrcore.toml
-# ---------------------------------------
+# version: 1.0.0
+"$schema" = 'https://starship.rs/config-schema.json'
 
-scan_timeout = 100
+add_newline = true
+continuation_prompt = "[▸▹ ](dimmed white)"
 
-format = """
+format = """($nix_shell$container$fill$git_metrics\n)$cmd_duration\
+$hostname\
+$localip\
+$shlvl\
+$shell\
+$env_var\
+$jobs\
+$sudo\
 $username\
-[](fg:no1 bg:re2)\
+$character"""
+
+right_format = """
+$singularity\
+$kubernetes\
 $directory\
-[](fg:re0)\
+$vcsh\
+$fossil_branch\
 $git_branch\
+$git_commit\
+$git_state\
 $git_status\
+$hg_branch\
+$pijul_channel\
+$docker_context\
+$package\
 $c\
+$cpp\
+$cmake\
+$cobol\
+$daml\
+$dart\
+$deno\
+$dotnet\
 $elixir\
 $elm\
+$erlang\
+$fennel\
+$fortran\
 $golang\
-$gradle\
+$guix_shell\
 $haskell\
+$haxe\
+$helm\
 $java\
 $julia\
+$kotlin\
+$gradle\
+$lua\
 $nim\
+$nodejs\
+$ocaml\
+$opa\
+$perl\
+$php\
+$pulumi\
+$purescript\
+$python\
+$raku\
+$rlang\
+$red\
+$ruby\
 $rust\
 $scala\
-$docker_context\
-$time\
-$line_break$character
-"""
+$solidity\
+$swift\
+$terraform\
+$vlang\
+$vagrant\
+$xmake\
+$zig\
+$buf\
+$conda\
+$pixi\
+$meson\
+$spack\
+$memory_usage\
+$aws\
+$gcloud\
+$openstack\
+$azure\
+$crystal\
+$custom\
+$status\
+$os\
+$battery\
+$time"""
 
-palette = "cybr_ship"
-
-[username]
-show_always = true
-style_user = "bg:no1 fg:re0"
-format = '[ $user ]($style)'
-disabled = false
-
-[shell]
-style = "bg:re2 fg:re0"
-format = '[ $indicator ]($style)'
-disabled = false
-
-[directory]
-style = "fg:re2 bg:re0"
-format = "[ $path ](bold $style)"
-truncation_length = 3
-truncation_symbol = "…/"
-
-[line_break]
-disabled = false
-
-[jobs]
-disabled = true
+[fill]
+symbol = ' '
 
 [character]
-success_symbol = "[❯ ](fg:re0)"
-error_symbol = "[](fg:re0)"
-vicmd_symbol = "[󰆤](fg:ye0)"
-format = "$symbol"
+format = "$symbol "
+success_symbol = "[◎](bold italic bright-yellow)"
+error_symbol = "[○](italic purple)"
+vimcmd_symbol = "[■](italic dimmed green)"
+# not supported in zsh
+vimcmd_replace_one_symbol = "◌"
+vimcmd_replace_symbol = "□"
+vimcmd_visual_symbol = "▼"
+
+[env_var.VIMSHELL]
+format = "[$env_value]($style)"
+style = 'green italic'
+
+[sudo]
+format = "[$symbol]($style)"
+style = "bold italic bright-purple"
+symbol = "⋈┈"
+disabled = false
+
+[username]
+style_user = "bright-yellow bold italic"
+style_root = "purple bold italic"
+format = "[⭘ $user]($style) "
+disabled = false
+show_always = false
+
+[directory]
+home_symbol = "⌂"
+truncation_length = 2
+truncation_symbol = "□ "
+read_only = " ◈"
+use_os_path_sep = true
+style = "italic blue"
+format = '[$path]($style)[$read_only]($read_only_style)'
+repo_root_style = 'bold blue'
+repo_root_format = '[$before_root_path]($before_repo_root_style)[$repo_root]($repo_root_style)[$path]($style)[$read_only]($read_only_style) [△](bold bright-blue)'
+
+[cmd_duration]
+format = "[◄ $duration ](italic white)"
+
+[jobs]
+format = "[$symbol$number]($style) "
+style = "white"
+symbol = "[▶](blue italic)"
+
+[localip]
+ssh_only = true
+format = " ◯[$localipv4](bold magenta)"
+disabled = false
 
 [time]
 disabled = false
-time_format = "%R" # Hour:Minute Format
-style = "fg:cy0 bg:cy2"
-format = '[](fg:cy2)[ $time ]($style)[](fg:cy2)'
+format = "[ $time]($style)"
+time_format = "%R"
+utc_time_offset = "local"
+style = "italic dimmed white"
 
-[custom.time_arrow]
-disabled = false
-command = 'echo -n ""'
-when = 'true'
-style = "fg:cy2"
-format = '[ $output]($style)'
+[battery]
+format = "[ $percentage $symbol]($style)"
+full_symbol = "█"
+charging_symbol = "[↑](italic bold green)"
+discharging_symbol = "↓"
+unknown_symbol = "░"
+empty_symbol = "▃"
 
-[custom.transient_time]
-disabled = false
-command = 'date "+%H:%M"'
-when = 'true'
-style = "fg:cy0 bg:cy2"
-format = '[ $output ]($style)'
+[[battery.display]]
+threshold = 20
+style = "italic bold red"
 
-[palettes.cybr_ship]
-no0 = "#030408"
-no1 = "#05070D"
+[[battery.display]]
+threshold = 60
+style = "italic dimmed bright-purple"
 
-re0 = "#F24848"
-re2 = "#331215"
-
-gr0 = "#30F291"
-gr2 = "#0C3423"
-
-ye0 = "#F2D230"
-ye2 = "#332D10"
-
-bl0 = "#3061F2"
-bl2 = "#0C1737"
-
-pu0 = "#A130F2"
-pu2 = "#230D37"
-
-cy0 = "#29BECC"
-cy2 = "#0B292F"
-
-wh0 = "#898D99"
-wh2 = "#1E2025"
-
-me0 = "#4D5A80"
-me2 = "#0D1120"
-
-or0 = "#F23D18"
-or2 = "#330F0B"
+[[battery.display]]
+threshold = 70
+style = "italic dimmed yellow"
 
 [git_branch]
-symbol = ""
-style = "bg:pu2 fg:pu0"
-format = "[](fg:pu2)[ $symbol $branch ]($style)[](fg:pu2)"
+format = " [$branch(:$remote_branch)]($style)"
+symbol = "[△](bold italic bright-blue)"
+style = "italic bright-blue"
+truncation_symbol = "⋯"
+truncation_length = 11
+ignore_branches = ["main", "master"]
+only_attached = true
+
+[git_metrics]
+format = '([▴$added]($added_style))([▿$deleted]($deleted_style))'
+added_style = 'italic dimmed green'
+deleted_style = 'italic dimmed red'
+ignore_submodules = true
+disabled = false
 
 [git_status]
-style = "bg:pu0 fg:pu2"   # hlavní blok
-format = "[](fg:pu0)[ $all_status$ahead_behind ]($style)[](fg:pu0)"
+style = "bold italic bright-blue"
+format = "([⎪$ahead_behind$staged$modified$untracked$renamed$deleted$conflicted$stashed⎥]($style))"
+conflicted = "[◪◦](italic bright-magenta)"
+ahead = "[▴│[${count}](bold white)│](italic green)"
+behind = "[▿│[${count}](bold white)│](italic red)"
+diverged = "[◇ ▴┤[${ahead_count}](regular white)│▿┤[${behind_count}](regular white)│](italic bright-magenta)"
+untracked = "[◌◦](italic bright-yellow)"
+stashed = "[◃◈](italic white)"
+modified = "[●◦](italic yellow)"
+staged = "[▪┤[$count](bold white)│](italic bright-cyan)"
+renamed = "[◎◦](italic bright-blue)"
+deleted = "[✕](italic red)"
 
-[c]
-symbol = ""
-style = "bg:bl2 fg:bl0"
-format = "[](fg:pu2 bg:bl2)[ $symbol ($version) ]($style)"
+[deno]
+format = " [deno](italic) [∫ $version](green bold)"
+version_format = "${raw}"
 
-[cpp]
-symbol = ""
-style = "bg:bl2 fg:bl0"
-format = "[ $symbol ($version) ]($style)"
+[lua]
+format = " [lua](italic) [${symbol}${version}]($style)"
+version_format = "${raw}"
+symbol = "⨀ "
+style = "bold bright-yellow"
 
-[elm]
-symbol = ""
-style = "bg:bl2 fg:bl0"
-format = "[ $symbol ($version) ]($style)"
-
-[golang]
-symbol = ""
-style = "bg:bl2 fg:bl0"
-format = "[ $symbol ($version) ]($style)"
-
-[gradle]
-style = "bg:cy2 fg:cy0"
-format = "[](fg:bl2 bg:cy2)[ $symbol ($version) ]($style)"
-
-[julia]
-symbol = ""
-style = "bg:cy2 fg:cy0"
-format = "[ $symbol ($version) ]($style)"
-
-[java]
-symbol = ""
-style = "bg:or2 fg:or0"
-format = "[](fg:cy2 bg:or2)[ $symbol ($version) ]($style)"
-
-[rust]
-symbol = ""
-style = "bg:or2 fg:or0"
-format = "[ $symbol ($version) ]($style)"
+[nodejs]
+format = " [node](italic) [◫ ($version)](bold bright-green)"
+version_format = "${raw}"
+detect_files = ["package-lock.json", "yarn.lock"]
+detect_folders = ["node_modules"]
+detect_extensions = []
 
 [python]
-symbol = ""
-style = "bg:ye2 fg:ye0"
-format = "[](fg:or2 bg:ye2)[ $symbol ($version) ]($style)"
+format = " [py](italic) [${symbol}${version}]($style)"
+symbol = "[⌉](bold bright-blue)⌊ "
+version_format = "${raw}"
+style = "bold bright-yellow"
 
-[nim]
-symbol = "󰆥"
-style = "bg:ye2 fg:ye0"
-format = "[ $symbol ($version) ]($style)"
+[ruby]
+format = " [rb](italic) [${symbol}${version}]($style)"
+symbol = "◆ "
+version_format = "${raw}"
+style = "bold red"
 
-[haskell]
-symbol = ""
-style = "bg:pu2 fg:pu0"
-format = "[](fg:ye2 bg:pu2)[ $symbol ($version) ]($style)"
+[rust]
+format = " [rs](italic) [$symbol$version]($style)"
+symbol = "⊃ "
+version_format = "${raw}"
+style = "bold red"
 
-[elixir]
-symbol = ""
-style = "bg:pu2 fg:pu0"
-format = "[ $symbol ($version) ]($style)"
+[package]
+format = " [pkg](italic dimmed) [$symbol$version]($style)"
+version_format = "${raw}"
+symbol = "◨ "
+style = "dimmed yellow italic bold"
 
-[scala]
-symbol = ""
-style = "bg:re2 fg:re0"
-format = "[](fg:pu2 bg:re2)[ $symbol ($version) ]($style)"
+[swift]
+format = " [sw](italic) [${symbol}${version}]($style)"
+symbol = "◁ "
+style = "bold bright-red"
+version_format = "${raw}"
+
+[aws]
+disabled = true
+format = " [aws](italic) [$symbol $profile $region]($style)"
+style = "bold blue"
+symbol = "▲ "
+
+[buf]
+symbol = "■ "
+format = " [buf](italic) [$symbol $version $buf_version]($style)"
+
+[c]
+symbol = "ℂ "
+format = " [$symbol($version(-$name))]($style)"
+
+[cpp]
+symbol = "ℂ "
+format = " [$symbol($version(-$name))]($style)"
+
+[conda]
+symbol = "◯ "
+format = " conda [$symbol$environment]($style)"
+
+[pixi]
+symbol = "■ "
+format = " pixi [$symbol$version ($environment )]($style)"
+
+[dart]
+symbol = "◁◅ "
+format = " dart [$symbol($version )]($style)"
 
 [docker_context]
-symbol = ""
-style = "bg:bl2 fg:bl0"
-format = "[](fg:re2 bg:bl2)[ $symbol $context ]($style)"
+symbol = "◧ "
+format = " docker [$symbol$context]($style)"
+
+[elixir]
+symbol = "△ "
+format = " exs [$symbol $version OTP $otp_version ]($style)"
+
+[elm]
+symbol = "◩ "
+format = " elm [$symbol($version )]($style)"
+
+[golang]
+symbol = "∩ "
+format = " go [$symbol($version )]($style)"
+
+[haskell]
+symbol = "❯λ "
+format = " hs [$symbol($version )]($style)"
+
+[java]
+symbol = "∪ "
+format = " java [${symbol}(${version} )]($style)"
+
+[julia]
+symbol = "◎ "
+format = " jl [$symbol($version )]($style)"
+
+[memory_usage]
+symbol = "▪▫▪ "
+format = " mem [${ram}( ${swap})]($style)"
+
+[nim]
+symbol = "▴▲▴ "
+format = " nim [$symbol($version )]($style)"
+
+[nix_shell]
+style = 'bold italic dimmed blue'
+symbol = '✶'
+format = '[$symbol nix⎪$state⎪]($style) [$name](italic dimmed white)'
+impure_msg = '[⌽](bold dimmed red)'
+pure_msg = '[⌾](bold dimmed green)'
+unknown_msg = '[◌](bold dimmed yellow)'
+
+[spack]
+symbol = "◇ "
+format = " spack [$symbol$environment]($style)"
