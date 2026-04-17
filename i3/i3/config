@@ -127,8 +127,22 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
+set $i3l spiral to workspace $ws1
+set $i3l spiral to workspace $ws2
+set $i3l spiral to workspace $ws3
+
+set $i3l 3columns to workspace $ws4
+set $i3l 3columns to workspace $ws5
+set $i3l 3columns to workspace $ws6
+
+set $i3l vstack to workspace $ws7
+set $i3l vstack to workspace $ws8
+set $i3l vstack to workspace $ws9
+
+
 # startup commands
 exec feh --bg-fill ~/Pictures/Wallpapers/wal3.png
 exec conky
 exec bash ~/.config/polybar/launch.sh &
 exec picom&
+exec ~/.local/bin/i3-layouts
