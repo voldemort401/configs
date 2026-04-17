@@ -42,7 +42,7 @@ element {
 
 element-text {
 	enabled:						true;
-	font:							"Symbols Nerd Font 32";
+	font:							"GeistMono Nerd Font 32";
 	vertical-align:					0.0;
 	horizontal-align:				0.5;
 	padding:						20px;

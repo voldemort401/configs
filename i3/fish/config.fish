@@ -7,7 +7,7 @@
 
 # Environment
 set -gx EDITOR nvim
-set -gx VISUAL codium
+set -gx VISUAL nvim 
 set -gx STARSHIP_CONFIG ~/.config/starship.toml
 
 set -gx TERM xterm-kitty
